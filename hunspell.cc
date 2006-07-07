@@ -17,12 +17,7 @@
 */
 
 #include <ruby.h>
-
-#ifdef HAVE_HUNSPELL_HUNSPELL_HXX
-# include <hunspell/hunspell.hxx>
-#else
-# include <hunspell.hxx>
-#endif
+#include <hunspell.hxx>
 
 static VALUE cHunspell;
 
