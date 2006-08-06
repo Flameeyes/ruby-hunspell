@@ -41,7 +41,16 @@
 	      custom_prototype: "VALUE hunspell_suggest(VALUE self, VALUE word)",
 	      custom_name: "hunspell_suggest", custom_paramcount: 1 },
 	    { name: "put_word",
-	      params: [ {name: "word", type: "char*"} ] }
+	      params: [ {name: "word", type: "char*"} ]
+	    },
+	    { name: "put_word_suffix",
+	      params: [ {name: "word", type: "char*"},
+	      	        {name: "suffix", type: "char*"} ]
+	    },
+	    { name: "put_word_pattern",
+	      params: [ {name: "word", type: "char*"},
+	      	        {name: "pattern", type: "char*"} ]
+	    }
 	  ]
 	}
       ]
