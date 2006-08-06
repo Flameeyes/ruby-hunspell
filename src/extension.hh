@@ -29,3 +29,6 @@ VALUE hunspell_free(Hunspell *pHS);
 VALUE hunspell_new(VALUE klass, VALUE affpath, VALUE dpath);
 VALUE hunspell_spell(VALUE self, VALUE word);
 VALUE hunspell_suggest(VALUE self, VALUE word);
+VALUE hunspell_put_word(VALUE self, VALUE word);
+VALUE hunspell_put_word_suffix(VALUE self, VALUE word, VALUE suffix);
+VALUE hunspell_put_word_pattern(VALUE self, VALUE word, VALUE pattern);

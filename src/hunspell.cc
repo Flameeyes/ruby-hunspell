@@ -55,3 +55,24 @@ VALUE hunspell_suggest(VALUE self, VALUE word) {
   
   return rubysuggestions;
 }
+
+VALUE hunspell_put_word(VALUE self, VALUE word) {
+  Hunspell *ptr;
+  Data_Get_Struct(self, Hunspell, ptr);
+
+  return INT2FIX(ptr->put_word(STR2CSTR(word)));
+}
+
+VALUE hunspell_put_word_suffix(VALUE self, VALUE word, VALUE suffix) {
+  Hunspell *ptr;
+  Data_Get_Struct(self, Hunspell, ptr);
+
+  return INT2FIX(ptr->put_word_suffix(STR2CSTR(word), STR2CSTR(suffix)));
+}
+
+VALUE hunspell_put_word_pattern(VALUE self, VALUE word, VALUE pattern) {
+  Hunspell *ptr;
+  Data_Get_Struct(self, Hunspell, ptr);
+
+  return INT2FIX(ptr->put_word_pattern(STR2CSTR(word), STR2CSTR(pattern)));
+}

@@ -24,5 +24,8 @@ extern "C" {
     rb_define_singleton_method(cHunspell, "new", RUBY_METHOD_FUNC(hunspell_new), 2);
     rb_define_method(cHunspell, "spell", RUBY_METHOD_FUNC(hunspell_spell), 1);
     rb_define_method(cHunspell, "suggest", RUBY_METHOD_FUNC(hunspell_suggest), 1);
+    rb_define_method(cHunspell, "put_word", RUBY_METHOD_FUNC(hunspell_put_word), 1);
+    rb_define_method(cHunspell, "put_word_suffix", RUBY_METHOD_FUNC(hunspell_put_word_suffix), 2);
+    rb_define_method(cHunspell, "put_word_pattern", RUBY_METHOD_FUNC(hunspell_put_word_pattern), 2);
   }
 }
