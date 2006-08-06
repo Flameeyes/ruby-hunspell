@@ -50,7 +50,13 @@
 	    { name: "put_word_pattern",
 	      params: [ {name: "word", type: "char*"},
 	      	        {name: "pattern", type: "char*"} ]
-	    }
+	    },
+	    { name: "get_dic_encoding", return: "char*" },
+	    { name: "get_wordchars", return "const char*" },
+	    # Missing: get_wordchars_utf16
+	    # Missing: get_csconv
+	    # Missing: get_utf_conv
+	    { name: "get_version", return: "char*" }
 	  ]
 	}
       ]
