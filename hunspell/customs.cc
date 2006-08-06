@@ -53,3 +53,20 @@ VALUE hunspell_analyze(VALUE self, VALUE word) {
   
   return rubyoutput;
 }
+
+VALUE hunspell_stem(VALUE self, VALUE word) {
+  ::Hunspell* ptr = ruby2Hunspell_HunspellPtr(self);
+  if ( ! ptr ) return Qnil; // The exception is thrown by ruby2* 
+
+  char **output = NULL;
+  int ns = ptr->stem(&output, STR2CSTR(word));
+  
+  VALUE rubyoutput = rb_ary_new2(ns);
+  for ( int i = 0; i < ns; i++ ) {
+    rb_ary_push(rubyoutput, rb_str_new2(output[i]));
+    free(output[i]);
+  }
+  free(output);
+  
+  return rubyoutput;
+}
