@@ -33,7 +33,11 @@ class ClassMethod < Function
    end
 
    def varname
-      "f#{@cls.ns.name.gsub("::", "_")}_#{@cls.name}_#{@name}"
+     if @custom
+       @custom_name
+     else
+       "f#{@cls.ns.name.gsub("::", "_")}_#{@cls.name}_#{@name}"
+     end
    end
 
    def raw_call(param = nil)
@@ -41,6 +45,8 @@ class ClassMethod < Function
    end
 
    def binding_stub
+      return "" if @custom
+
       if @bindname == "initialize"
          return constructor_stub
       end

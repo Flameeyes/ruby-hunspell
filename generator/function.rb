@@ -35,6 +35,10 @@ class Function
 
       @aliases = content["aliases"]
 
+      @custom = content["custom"] == "yes"
+      @custom_prototype = content["custom_prototype"]
+      @custom_name = content["custom_name"]
+
       if content["params"]
          content["params"].each { |p|
             @params << Parameter.new(p["type"], p["name"], p["optional"] == "yes")
@@ -61,15 +65,19 @@ class Function
    end
 
    def binding_prototype
-      if @vararg
-         prototype = "VALUE #{varname} ( int argc, VALUE *argv, VALUE self )"
-      else
-         prototype = "VALUE #{varname} ( VALUE self"
-
-         @params.each { |p| prototype << ", VALUE #{p.name}" }
-
-         prototype << " )"
-      end
+     if @custom
+       $stderr.puts "custom prototype #{@custom_prototype}"
+       return @custom_prototype
+     end
+     if @vararg
+       prototype = "VALUE #{varname} ( int argc, VALUE *argv, VALUE self )"
+     else
+       prototype = "VALUE #{varname} ( VALUE self"
+       
+       @params.each { |p| prototype << ", VALUE #{p.name}" }
+       
+       prototype << " )"
+     end
    end
 
    def raw_call(param = nil)
