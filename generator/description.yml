@@ -51,12 +51,23 @@
 	      params: [ {name: "word", type: "char*"},
 	      	        {name: "pattern", type: "char*"} ]
 	    },
+	    
+	    # Other functions
 	    { name: "get_dic_encoding", return: "char*" },
 	    { name: "get_wordchars", return "const char*" },
 	    # Missing: get_wordchars_utf16
 	    # Missing: get_csconv
 	    # Missing: get_utf_conv
-	    { name: "get_version", return: "char*" }
+	    { name: "get_version", return: "char*" },
+
+	    # Morphological analysis
+	    { name: "morph", return: "char*",
+	      params: [ {name: "word", type: "char*"} ]
+	    },
+	    # Missing: analyze
+	    { name: "morph_with_correction", return: "char*",
+	      params: [ {name: "word", type: "char*"} ]
+	    }
 	  ]
 	}
       ]
