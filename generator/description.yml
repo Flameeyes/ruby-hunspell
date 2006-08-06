@@ -1,21 +1,20 @@
 # kate: encoding UTF-8; remove-trailing-space on; replace-trailing-space-save on; space-indent on; indent-width 2;
+#  ruby-hunspell - Ruby bindings for Hunspell library
+#  Copyright (C) 2006, Diego Pettenò
 #
-# RubyTag++ TagLib bindings
-# Copyright (C) 2006, Diego "Flameeyes" Pettenò
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#  You should have received a copy of the GNU General Public License
+#  along with this software; if not, write to the Free Software
+#  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 {
   bindings: "hunspell",
   includes: [
@@ -27,11 +26,20 @@
       classes: [
         { name: "Hunspell",
 	  methods: [
+	    { name: "Hunspell",
+	      params: [
+	        {name: "affpath", type: "char*"},
+		{name: "dpath", type: "char*"}
+	      ]
+	    },
 	    { name: "spell", return: "int",
 	      params: [
 	        {name: "word", type: "char*"}
 	      ]
-	    }
+	    },
+	    { name: "suggest", custom: "yes",
+	      custom_prototype: "VALUE hunspell_suggest(VALUE self, VALUE word)",
+	      custom_name: "hunspell_suggest" }
 	  ]
 	}
       ]
