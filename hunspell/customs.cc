@@ -21,8 +21,8 @@
 #include "hunspell.h"
 
 VALUE hunspell_suggest(VALUE self, VALUE word) {
-  Hunspell *ptr;
-  Data_Get_Struct(self, Hunspell, ptr);
+  ::Hunspell* ptr = ruby2Hunspell_HunspellPtr(self);
+  if ( ! ptr ) return Qnil; // The exception is thrown by ruby2*
 
   char **suggestions = NULL;
   int ns = ptr->suggest(&suggestions, STR2CSTR(word));
@@ -38,8 +38,8 @@ VALUE hunspell_suggest(VALUE self, VALUE word) {
 }
 
 VALUE hunspell_analyze(VALUE self, VALUE word) {
-  Hunspell *ptr;
-  Data_Get_Struct(self, Hunspell, ptr);
+  ::Hunspell* ptr = ruby2Hunspell_HunspellPtr(self);
+  if ( ! ptr ) return Qnil; // The exception is thrown by ruby2* 
 
   char **output = NULL;
   int ns = ptr->analyze(&output, STR2CSTR(word));
