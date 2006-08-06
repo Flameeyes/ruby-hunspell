@@ -76,6 +76,16 @@
 	    { name: "stem", custom: "yes",
 	      custom_prototype: "VALUE hunspell_stem(VALUE self, VALUE word)",
 	      custom_name: "hunspell_stem", custom_paramcount: 1
+	    },
+
+	    # Spec. suggestion
+	    { name: "suggest_auto", custom: "yes",
+	      custom_prototype: "VALUE hunspell_suggest_auto(VALUE self, VALUE word)",
+	      custom_name: "hunspell_suggest_auto", custom_paramcount: 1
+	    },
+	    { name: "suggest_pos_stems", custom: "yes",
+	      custom_prototype: "VALUE hunspell_suggest_pos_stems(VALUE self, VALUE word)",
+	      custom_name: "hunspell_suggest_pos_stems", custom_paramcount: 1
 	    }
 	  ]
 	}
