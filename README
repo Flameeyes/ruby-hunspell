@@ -16,7 +16,16 @@ so that the extension can be built and used whenever Ruby and Hunspell are
 present.
 
 Since version 0.002 the extension is generated through the generator that was
-wrote to get RubyTag++ working (with a few improvements).
+wrote to get RubyTag++ working (with a few improvements that will be merged
+back into the other line of code). This implies that quite a bit more symbols are
+being exported, but this also allows for a more complete (and safely working)
+extension to be written.
+
+To try reducing the number of unneeded exported symbols, ruby-hunspell builds by
+default with hidden visibility enabled, that requires GCC 4.0 or later, or a
+specially patched 3.4. This is really important for the performances, especially
+since the bindings will be resolved at runtime, but can be disabled in the
+CMakeLists.txt file if needed.
 
 Unfortunately up to 1.1.4, Hunspell does not provide shared libraries that can
 be used by other software, so only static linking is available, and this does
