@@ -41,7 +41,8 @@ ADD_CUSTOM_COMMAND(
 		${GENERATOR_PATH}/description.yml
 )
 
-ADD_LIBRARY(hunspell MODULE ${CMAKE_CURRENT_BINARY_DIR}/hunspell/hunspell.cpp)
+ADD_LIBRARY(hunspell MODULE ${CMAKE_CURRENT_BINARY_DIR}/hunspell/hunspell.cpp
+		     	    ${CMAKE_CURRENT_SOURCE_DIR}/hunspell/customs.cc)
 SET_TARGET_PROPERTIES(hunspell PROPERTIES PREFIX "")
 TARGET_LINK_LIBRARIES(hunspell ${HUNSPELL_LIBRARY})
 
