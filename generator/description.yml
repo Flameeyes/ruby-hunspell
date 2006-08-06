@@ -23,6 +23,7 @@
   ],
   namespaces: [
     { name: "Hunspell",
+      cxxname: "",
       classes: [
         { name: "Hunspell",
 	  methods: [
