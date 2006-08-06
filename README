@@ -27,6 +27,10 @@ specially patched 3.4. This is really important for the performances, especially
 since the bindings will be resolved at runtime, but can be disabled in the
 CMakeLists.txt file if needed.
 
+This extension will be called complete when it would be possible to implement
+easily drop-in replacements for hunspell's bundled tools written in Ruby rather
+than C++.
+
 Unfortunately up to 1.1.4, Hunspell does not provide shared libraries that can
 be used by other software, so only static linking is available, and this does
 not work, to create a shared extension, on architectures like x86_64.
