@@ -82,6 +82,7 @@ class Class
       ret = %@
          extern VALUE c#{varname};
          VALUE cxx2ruby(#{@ns.cxxname}::#{@name}* instance);
+         #{@ns.cxxname}::#{@name}* ruby2#{varname}Ptr(VALUE rval);
       @
 
       unless @parent
