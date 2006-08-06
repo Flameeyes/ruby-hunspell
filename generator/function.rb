@@ -89,7 +89,7 @@ class Function
       if @return == "void"
          "#{raw_call(param)}; return Qnil;\n"
       else
-         "return cxx2ruby(#{raw_call(param)});\n"
+        "return cxx2ruby((#{@return})#{raw_call(param)});\n"
       end
    end
 
