@@ -119,7 +119,11 @@ class ClassMethod < Function
    end
 
    def init
-      res = "rb_define_method(c#{@cls.varname}, \"#{@bindname}\", RUBY_METHOD_FUNC(#{varname}), #{@vararg ? "-1" : @params.length});\n"
+     if @custom
+       res = "rb_define_method(c#{@cls.varname}, \"#{@bindname}\", RUBY_METHOD_FUNC(#{varname}), #{@custom_paramcount});\n"
+     else
+       res = "rb_define_method(c#{@cls.varname}, \"#{@bindname}\", RUBY_METHOD_FUNC(#{varname}), #{@vararg ? "-1" : @params.length});\n"
+     end
       if @aliases
          @aliases.each { |meth_alias|
             res << "rb_define_alias(c#{@cls.varname}, \"#{meth_alias}\", \"#{@bindname}\");\n"

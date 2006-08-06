@@ -38,6 +38,7 @@ class Function
       @custom = content["custom"] == "yes"
       @custom_prototype = content["custom_prototype"]
       @custom_name = content["custom_name"]
+      @custom_paramcount = content["custom_paramcount"]
 
       if content["params"]
          content["params"].each { |p|

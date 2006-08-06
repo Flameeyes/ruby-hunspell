@@ -39,7 +39,7 @@
 	    },
 	    { name: "suggest", custom: "yes",
 	      custom_prototype: "VALUE hunspell_suggest(VALUE self, VALUE word)",
-	      custom_name: "hunspell_suggest" },
+	      custom_name: "hunspell_suggest", custom_paramcount: 1 },
 	    { name: "put_word",
 	      params: [ {name: "word", type: "char*"} ] }
 	  ]
