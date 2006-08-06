@@ -36,10 +36,6 @@ header = File.new("#{bindings}.h", "w")
 unit = File.new("#{bindings}.cpp", "w")
 
 header.puts %@
-#ifdef __GNUC__
-# pragma GCC visibility push(default)
-#endif
-
 #include <ruby.h>
 
 @
@@ -48,23 +44,9 @@ description["includes"].each do |libincl|
    header.puts "#include #{libincl}"
 end
 
-header.puts %@
-#ifdef __GNUC__
-# pragma GCC visibility pop
-#endif
-
-#ifdef __GNUC__
-# pragma GCC visibility push(hidden)
-#endif
-@
-
 unit.puts %@
 #include "#{bindings}.h"
 #include "conversions.h"
-
-#ifdef __GNUC__
-# pragma GCC visibility push(hidden)
-#endif
 @
 
 namespaces.each { |ns|
@@ -72,23 +54,8 @@ namespaces.each { |ns|
    unit.puts(ns.unit)
 }
 
-header.puts %@
-#ifdef __GNUC__
-# pragma GCC visibility pop
-#endif
-
-@
-
 unit.puts %@
-#ifdef __GNUC__
-# pragma GCC visibility pop
-#endif
-
 extern "C" {
-
-#ifdef __GNUC__
-# pragma GCC visibility push(default)
-#endif
 
 void Init_#{bindings}() {
 @
@@ -99,10 +66,6 @@ namespaces.each { |ns|
 
 unit.puts %@
 } /* Init_#{bindings} */
-
-#ifdef __GNUC__
-# pragma GCC visibility pop
-#endif
 
 } /* extern C */
 @
