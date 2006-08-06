@@ -37,6 +37,7 @@ unit = File.new("#{bindings}.cpp", "w")
 
 header.puts %@
 #include <ruby.h>
+#include <map> /* This is for the ptrMap */
 
 @
 
