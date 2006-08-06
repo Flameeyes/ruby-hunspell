@@ -14,6 +14,7 @@ static inline VALUE cxx2ruby(int val)
 
 static inline VALUE cxx2ruby(const char *val)
 {
+    if ( ! val ) return Qnil;
     return rb_str_new2(val);
 }
 
