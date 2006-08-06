@@ -19,27 +19,27 @@
 #include <ruby.h>
 #include <hunspell.hxx>
 
-static VALUE cHunspell;
+VALUE cHunspell;
 
-static VALUE hunspell_free(Hunspell *pHS) {
+VALUE hunspell_free(Hunspell *pHS) {
   delete pHS;
 }
 
-static VALUE hunspell_new(VALUE klass, VALUE affpath, VALUE dpath) {
+VALUE hunspell_new(VALUE klass, VALUE affpath, VALUE dpath) {
   Hunspell *pHS = new Hunspell(STR2CSTR(affpath), STR2CSTR(dpath));
   VALUE tdata = Data_Wrap_Struct(klass, 0, hunspell_free, pHS);
   
   return tdata;
 }
 
-static VALUE hunspell_spell(VALUE self, VALUE word) {
+VALUE hunspell_spell(VALUE self, VALUE word) {
   Hunspell *ptr;
   Data_Get_Struct(self, Hunspell, ptr);
   
   return ptr->spell(STR2CSTR(word)) ? Qtrue : Qfalse;
 }
 
-static VALUE hunspell_suggest(VALUE self, VALUE word) {
+VALUE hunspell_suggest(VALUE self, VALUE word) {
   Hunspell *ptr;
   Data_Get_Struct(self, Hunspell, ptr);
 
@@ -54,13 +54,4 @@ static VALUE hunspell_suggest(VALUE self, VALUE word) {
   free(suggestions);
   
   return rubysuggestions;
-}
-
-extern "C" {
-  void Init_hunspell() {
-    cHunspell = rb_define_class("Hunspell", rb_cObject);
-    rb_define_singleton_method(cHunspell, "new", RUBY_METHOD_FUNC(hunspell_new), 2);
-    rb_define_method(cHunspell, "spell", RUBY_METHOD_FUNC(hunspell_spell), 1);
-    rb_define_method(cHunspell, "suggest", RUBY_METHOD_FUNC(hunspell_suggest), 1);
-  }
 }
