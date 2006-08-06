@@ -58,6 +58,10 @@ namespaces.each { |ns|
 unit.puts %@
 extern "C" {
 
+#ifdef HAVE_VISIBILITY
+void Init_#{bindings}() __attribute__((visibility("default")));
+#endif
+
 void Init_#{bindings}() {
 @
 
