@@ -128,7 +128,7 @@ class Class
 
       @children.each { |klass|
          ret << %@
-if ( dynamic_cast<#{klass.ns.cxxname}::#{klass.name}*>(instance) != NULL )
+if ( dynamic_cast< #{klass.ns.cxxname}::#{klass.name}* >(instance) != NULL )
 {
    klass = c#{klass.varname};
    #{klass.test_children}
@@ -164,7 +164,7 @@ static void #{varname}_free(void *p) {
    #{@ns.cxxname}::#{@name}* ptr;
    Data_Get_Struct(rval, #{@ns.cxxname}::#{@name}, ptr);
 
-   if ( ptr ) return dynamic_cast<#{@ns.cxxname}::#{@name}*>(ptr);
+   if ( ptr ) return dynamic_cast< #{@ns.cxxname}::#{@name}* >(ptr);
 
    T#{ptrmap}::iterator it = #{ptrmap}.find(rval);
 
@@ -173,7 +173,7 @@ static void #{varname}_free(void *p) {
       return NULL;
    }
 
-   return dynamic_cast<#{@ns.cxxname}::#{@name}*>((*it).second);
+   return dynamic_cast< #{@ns.cxxname}::#{@name}* >((*it).second);
 }
 
 VALUE cxx2ruby(#{@ns.cxxname}::#{@name}* instance) {
@@ -209,7 +209,7 @@ static VALUE #{varname}_alloc(VALUE self) {
                #{@ns.cxxname}::#{@name}* ptr;
                Data_Get_Struct(rval, #{@ns.cxxname}::#{@name}, ptr);
 
-               if ( ptr ) return *(dynamic_cast<#{@ns.cxxname}::#{@name}*>(ptr));
+               if ( ptr ) return *(dynamic_cast< #{@ns.cxxname}::#{@name}* >(ptr));
 
                return #{@ns.cxxname}::#{@name}();
             }
