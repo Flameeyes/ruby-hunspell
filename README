@@ -1,0 +1,29 @@
+ruby-hunspell is a Ruby language extension that wraps around the spell-checking
+functions provided by the Hunspell library.
+
+Hunspell library derived from OpenOffice.org's MySpell, and is being used for
+recent versions of OpenOffice.org itself.
+
+This extension has been started with the intent to provide an alternative to
+rbot's original spell-checking plugin, so that it would use hunspell directly
+rather than using the command-line interface of ispell (that is definitely less
+elaborated).
+
+The build system is CMake, rather than Ruby's xmkmf-based extbuild.rb script, as
+the latter does not support C++ libraries as dependencies. The support scripts
+should work just as fine on UNIX-like systems (Linux, FreeBSD, ...) and Windows,
+so that the extension can be built and used whenever Ruby and Hunspell are
+present.
+
+Since version 0.002 the extension is generated through the generator that was
+wrote to get RubyTag++ working (with a few improvements).
+
+Unfortunately up to 1.1.4, Hunspell does not provide shared libraries that can
+be used by other software, so only static linking is available, and this does
+not work, to create a shared extension, on architectures like x86_64.
+For this reason, if you want to build ruby-hunspell on those architecture, you
+need the libtool patch applied in Gentoo Portage, that builds shared libraries
+built with PIC support.
+
+Any feature request, bug report or anything else, please send via e-mail at
+    Diego Pettenò <flameeyes@gentoo.org>
