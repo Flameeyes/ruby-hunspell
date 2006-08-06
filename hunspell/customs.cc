@@ -36,3 +36,20 @@ VALUE hunspell_suggest(VALUE self, VALUE word) {
   
   return rubysuggestions;
 }
+
+VALUE hunspell_analyze(VALUE self, VALUE word) {
+  Hunspell *ptr;
+  Data_Get_Struct(self, Hunspell, ptr);
+
+  char **output = NULL;
+  int ns = ptr->analyze(&output, STR2CSTR(word));
+  
+  VALUE rubyoutput = rb_ary_new2(ns);
+  for ( int i = 0; i < ns; i++ ) {
+    rb_ary_push(rubyoutput, rb_str_new2(output[i]));
+    free(output[i]);
+  }
+  free(output);
+  
+  return rubyoutput;
+}

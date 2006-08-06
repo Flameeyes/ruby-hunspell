@@ -64,7 +64,9 @@
 	    { name: "morph", return: "char*",
 	      params: [ {name: "word", type: "char*"} ]
 	    },
-	    # Missing: analyze
+	    { name: "analyze", custom: "yes",
+	      custom_prototype: "VALUE hunspell_analyze(VALUE self, VALUE word)",
+	      custom_name: "hunspell_analyze", custom_paramcount: 1 },
 	    { name: "morph_with_correction", return: "char*",
 	      params: [ {name: "word", type: "char*"} ]
 	    }
