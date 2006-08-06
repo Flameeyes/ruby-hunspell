@@ -53,8 +53,8 @@ class ClassMethod < Function
 
       ret = %@
          #{binding_prototype} {
-            #{@cls.ns.name}::#{@cls.name}* tmp = ruby2#{@cls.varname}Ptr(self);
-            // fprintf(stderr, "Called #{@cls.ns.name}::#{@cls.name}::#{@name} for value %x (%p).\\n", self, tmp);
+            #{@cls.ns.cxxname}::#{@cls.name}* tmp = ruby2#{@cls.varname}Ptr(self);
+            // fprintf(stderr, "Called #{@cls.ns.cxxname}::#{@cls.name}::#{@name} for value %x (%p).\\n", self, tmp);
             if ( ! tmp ) return Qnil; // The exception is thrown by ruby2*
 
          @
@@ -85,11 +85,11 @@ class ClassMethod < Function
    def constructor_stub
       ret = %@
 #{binding_prototype} {
-   #{@cls.ns.name}::#{@cls.name}* tmp;
-   Data_Get_Struct(self, #{@cls.ns.name}::#{@cls.name}, tmp);
+   #{@cls.ns.cxxname}::#{@cls.name}* tmp;
+   Data_Get_Struct(self, #{@cls.ns.cxxname}::#{@cls.name}, tmp);
 @
       unless @vararg
-         ret << "tmp = new #{@cls.ns.name}::#{@cls.name}(#{params_conversion});"
+         ret << "tmp = new #{@cls.ns.cxxname}::#{@cls.name}(#{params_conversion});"
       else
          ret << %@
             switch(argc)
@@ -98,12 +98,12 @@ class ClassMethod < Function
 
          for n in 0..(@params.size-1)
             if @params[n].optional
-               ret << "case #{n}: tmp = new #{@cls.ns.name}::#{@cls.name}(#{params_conversion(n)}); break;\n"
+               ret << "case #{n}: tmp = new #{@cls.ns.cxxname}::#{@cls.name}(#{params_conversion(n)}); break;\n"
             end
          end
 
          ret << %@
-               case #{@params.size}: tmp = new #{@cls.ns.name}::#{@cls.name}(#{params_conversion(@params.size)}); break;
+               case #{@params.size}: tmp = new #{@cls.ns.cxxname}::#{@cls.name}(#{params_conversion(@params.size)}); break;
                default: rb_raise(rb_eArgError, "Mandatory parameters missing (passed %d)\\n", argc); return Qnil;
             } // switch
             @
