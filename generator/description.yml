@@ -32,7 +32,7 @@
 		{name: "dpath", type: "char*"}
 	      ]
 	    },
-	    { name: "spell", return: "int",
+	    { name: "spell", return: "bool",
 	      params: [
 	        {name: "word", type: "char*"}
 	      ]
