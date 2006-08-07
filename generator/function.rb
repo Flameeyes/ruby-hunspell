@@ -35,6 +35,8 @@ class Function
 
       @aliases = content["aliases"]
 
+      @template = content["template"] ? $templates[content["template"]] : nil
+
       @custom = content["custom"] == "yes"
       @custom_prototype = content["custom_prototype"]
       @custom_name = content["custom_name"]
@@ -66,10 +68,8 @@ class Function
    end
 
    def binding_prototype
-     if @custom
-       $stderr.puts "custom prototype #{@custom_prototype}"
-       return @custom_prototype
-     end
+     return @template[:prototype].gsub('#{varname}', varname) if @template
+     return @custom_prototype if @custom
      if @vararg
        prototype = "VALUE #{varname} ( int argc, VALUE *argv, VALUE self )"
      else

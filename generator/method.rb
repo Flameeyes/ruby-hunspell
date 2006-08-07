@@ -46,6 +46,7 @@ class ClassMethod < Function
 
    def binding_stub
       return "" if @custom
+      return @template[:function].gsub('#{name}', @name).gsub('#{varname}', varname) if @template
 
       if @bindname == "initialize"
          return constructor_stub
@@ -121,6 +122,8 @@ class ClassMethod < Function
    def init
      if @custom
        res = "rb_define_method(c#{@cls.varname}, \"#{@bindname}\", RUBY_METHOD_FUNC(#{varname}), #{@custom_paramcount});\n"
+     elsif @template
+       res = "rb_define_method(c#{@cls.varname}, \"#{@bindname}\", RUBY_METHOD_FUNC(#{varname}), #{@template[:paramcount]});\n"
      else
        res = "rb_define_method(c#{@cls.varname}, \"#{@bindname}\", RUBY_METHOD_FUNC(#{varname}), #{@vararg ? "-1" : @params.length});\n"
      end

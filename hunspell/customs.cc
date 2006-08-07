@@ -20,23 +20,6 @@
 
 #include "hunspell.h"
 
-VALUE hunspell_suggest(VALUE self, VALUE word) {
-  ::Hunspell* ptr = ruby2Hunspell_HunspellPtr(self);
-  if ( ! ptr ) return Qnil; // The exception is thrown by ruby2*
-
-  char **suggestions = NULL;
-  int ns = ptr->suggest(&suggestions, STR2CSTR(word));
-  
-  VALUE rubysuggestions = rb_ary_new2(ns);
-  for ( int i = 0; i < ns; i++ ) {
-    rb_ary_push(rubysuggestions, rb_str_new2(suggestions[i]));
-    free(suggestions[i]);
-  }
-  free(suggestions);
-  
-  return rubysuggestions;
-}
-
 VALUE hunspell_analyze(VALUE self, VALUE word) {
   ::Hunspell* ptr = ruby2Hunspell_HunspellPtr(self);
   if ( ! ptr ) return Qnil; // The exception is thrown by ruby2* 

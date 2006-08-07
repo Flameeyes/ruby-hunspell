@@ -20,6 +20,28 @@
   includes: [
     "<hunspell.hxx>"
   ],
+  templates: [
+    { name: "word-in-array-out",
+      prototype: "VALUE #{varname}(VALUE self, VALUE word)",
+      function: "VALUE #{varname}(VALUE self, VALUE word) {
+		  ::Hunspell* ptr = ruby2Hunspell_HunspellPtr(self);
+		  if ( ! ptr ) return Qnil; /* The exception is thrown by ruby2* */
+		
+		  char **output = NULL;
+		  int ns = ptr->#{name}(&output, STR2CSTR(word));
+		  
+		  VALUE rubyoutput = rb_ary_new2(ns);
+		  for ( int i = 0; i < ns; i++ ) {
+		    rb_ary_push(rubyoutput, rb_str_new2(output[i]));
+		    free(output[i]);
+		  }
+		  free(output);
+		  
+		  return rubyoutput;
+		}",
+      paramcount: 1
+    }
+  ],
   namespaces: [
     { name: "Hunspell",
       cxxname: "",
@@ -37,9 +59,7 @@
 	        {name: "word", type: "char*"}
 	      ]
 	    },
-	    { name: "suggest", custom: "yes",
-	      custom_prototype: "VALUE hunspell_suggest(VALUE self, VALUE word)",
-	      custom_name: "hunspell_suggest", custom_paramcount: 1 },
+	    { name: "suggest", template: "word-in-array-out" },
 	    { name: "put_word",
 	      params: [ {name: "word", type: "char*"} ]
 	    },

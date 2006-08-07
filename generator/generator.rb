@@ -27,6 +27,18 @@ description = YAML::load(File.new(ARGV[0]).read)
 namespaces = Array.new
 bindings = description["bindings"]
 
+$templates = Hash.new
+if description.has_key?("templates")
+  description["templates"].each do |tmpl|
+    $templates[tmpl["name"]] = {
+      :name => tmpl["name"],
+      :prototype => tmpl["prototype"],
+      :function => tmpl["function"],
+      :paramcount => tmpl["paramcount"]
+    }
+  end
+end
+
 description["namespaces"].each do |ns|
    puts "Error in parsing description file, unnamed namespace." unless ns["name"]
    namespaces << CxxBindingsGenerator::Namespace.new(ns["name"], ns)
