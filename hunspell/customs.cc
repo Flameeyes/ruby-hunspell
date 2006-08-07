@@ -18,5 +18,5 @@
 
 /* Custom bindings */
 
-#include "hunspell.h"
+#include "hunspell.hh"
 

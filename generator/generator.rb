@@ -44,8 +44,8 @@ description["namespaces"].each do |ns|
    namespaces << CxxBindingsGenerator::Namespace.new(ns["name"], ns)
 end
 
-header = File.new("#{bindings}.h", "w")
-unit = File.new("#{bindings}.cpp", "w")
+header = File.new("#{bindings}.hh", "w")
+unit = File.new("#{bindings}.cc", "w")
 
 header.puts %@
 #include <ruby.h>
@@ -58,8 +58,8 @@ description["includes"].each do |libincl|
 end
 
 unit.puts %@
-#include "#{bindings}.h"
-#include "conversions.h"
+#include "#{bindings}.hh"
+#include "conversions.hh"
 @
 
 namespaces.each { |ns|

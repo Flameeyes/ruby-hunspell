@@ -30,8 +30,8 @@ ADD_DEFINITIONS(-fvisibility=hidden -DHAVE_VISIBILITY)
 
 SET(GENERATOR_PATH ${CMAKE_CURRENT_SOURCE_DIR}/generator)
 ADD_CUSTOM_COMMAND(
-	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/hunspell/hunspell.cpp
-		${CMAKE_CURRENT_BINARY_DIR}/hunspell/hunspell.h
+	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/hunspell/hunspell.cc
+		${CMAKE_CURRENT_BINARY_DIR}/hunspell/hunspell.hh
 	COMMAND ${RUBY_EXECUTABLE}
 	ARGS -I${GENERATOR_PATH} -C${CMAKE_CURRENT_BINARY_DIR}/hunspell
 		${GENERATOR_PATH}/generator.rb ${GENERATOR_PATH}/description.yml
@@ -41,7 +41,7 @@ ADD_CUSTOM_COMMAND(
 		${GENERATOR_PATH}/description.yml
 )
 
-ADD_LIBRARY(hunspell MODULE ${CMAKE_CURRENT_BINARY_DIR}/hunspell/hunspell.cpp
+ADD_LIBRARY(hunspell MODULE ${CMAKE_CURRENT_BINARY_DIR}/hunspell/hunspell.cc
 		     	    ${CMAKE_CURRENT_SOURCE_DIR}/hunspell/customs.cc)
 SET_TARGET_PROPERTIES(hunspell PROPERTIES PREFIX "")
 TARGET_LINK_LIBRARIES(hunspell ${HUNSPELL_LIBRARY})
