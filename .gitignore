@@ -3,5 +3,5 @@ CMakeFiles
 Makefile
 cmake_install.cmake
 hunspell.so
-hunspell/hunspell.cpp
-hunspell/hunspell.h
+hunspell/hunspell.cc
+hunspell/hunspell.hh
