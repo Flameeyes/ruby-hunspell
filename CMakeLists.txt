@@ -34,12 +34,11 @@ ADD_CUSTOM_COMMAND(
 		${CMAKE_CURRENT_BINARY_DIR}/hunspell/hunspell.hh
 	COMMAND ${RUBY_EXECUTABLE}
 	ARGS -I${GENERATOR_PATH} -C${CMAKE_CURRENT_BINARY_DIR}/hunspell
-		${GENERATOR_PATH}/generator.rb ${GENERATOR_PATH}/description.yml
+		${GENERATOR_PATH}/generator.rb ${CMAKE_CURRENT_SOURCE_DIR}/hunspell/hunspell.yml
 	DEPENDS ${GENERATOR_PATH}/generator.rb ${GENERATOR_PATH}/class.rb
 		${GENERATOR_PATH}/method.rb ${GENERATOR_PATH}/namespace.rb
 		${GENERATOR_PATH}/function.rb
-		${GENERATOR_PATH}/description.yml
-)
+		${CMAKE_CURRENT_SOURCE_DIR}/hunspell/hunspell.yml )
 
 ADD_LIBRARY(hunspell MODULE ${CMAKE_CURRENT_BINARY_DIR}/hunspell/hunspell.cc
 		     	    ${CMAKE_CURRENT_SOURCE_DIR}/hunspell/customs.cc)
