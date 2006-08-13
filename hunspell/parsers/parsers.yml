@@ -39,7 +39,7 @@
 	      params: [ {name: "n", type: "int"} ]
 	    },
 	    { name: "next_token", return: "const char*" },
-	    { name: "change_token", return: "int",
+	    { name: "change_token", return: "bool",
 	      params: [ {name: "word", type: "char*" } ]
 	    },
 	    { name: "get_tokenpos", return: "int" },
