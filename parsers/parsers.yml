@@ -19,7 +19,10 @@
   bindings: "parsers",
   includes: [
     "<textparser.hxx>",
-    "<latexparser.hxx>"
+    "<latexparser.hxx>",
+    "<firstparser.hxx>",
+    "<manparser.hxx>",
+    "<htmlparser.hxx>"
   ],
   namespaces: [
     { name: "Hunspell",
@@ -53,6 +56,27 @@
 	{ name: "LaTeXParser",
 	  methods: [
 	    { name: "LaTeXParser",
+	      params: [ {name: "wc", type: "char*", default: "NULL"} ]
+	    }
+	  ]
+	},
+	{ name: "FirstParser",
+	  methods: [
+	    { name: "FirstParser",
+	      params: [ {name: "wc", type: "char*", default: "NULL"} ]
+	    }
+	  ]
+	},
+	{ name: "ManParser",
+	  methods: [
+	    { name: "ManParser",
+	      params: [ {name: "wc", type: "char*", default: "NULL"} ]
+	    }
+	  ]
+	},
+	{ name: "HTMLParser",
+	  methods: [
+	    { name: "HTMLParser",
 	      params: [ {name: "wc", type: "char*", default: "NULL"} ]
 	    }
 	  ]
