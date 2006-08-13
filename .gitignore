@@ -5,3 +5,6 @@ cmake_install.cmake
 hunspell.so
 hunspell/hunspell.cc
 hunspell/hunspell.hh
+parsers/parsers.cc
+parsers/parsers.hh
+parsers/parsers.so
