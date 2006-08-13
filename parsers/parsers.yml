@@ -18,7 +18,8 @@
 {
   bindings: "parsers",
   includes: [
-    "<textparser.hxx>"
+    "<textparser.hxx>",
+    "<latexparser.hxx>"
   ],
   namespaces: [
     { name: "Hunspell",
@@ -47,6 +48,13 @@
 	      params: [ {name: "s", type: "char*"} ]
 	    },
 	    { name: "next_char", return: "const char*" }
+	  ]
+	},
+	{ name: "LaTeXParser",
+	  methods: [
+	    { name: "LaTeXParser",
+	      params: [ {name: "wc", type: "char*", default: "NULL"} ]
+	    }
 	  ]
 	}
       ]

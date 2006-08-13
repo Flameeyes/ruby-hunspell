@@ -67,7 +67,8 @@ class ClassMethod < Function
             @
 
          for n in 0..(@params.size-1)
-            ret << "case #{n}: #{bind_call(n)}" if @params[n].optional
+           ret << "case #{n}: #{bind_call(n)}" if @params[n].optional
+           ret << "case #{n}: #{bind_call(n, [@params[n].default])}" if @params[n].default
          end
 
          ret << "case #{@params.size}: #{bind_call(@params.size)};"
@@ -98,9 +99,8 @@ class ClassMethod < Function
 @
 
          for n in 0..(@params.size-1)
-            if @params[n].optional
-               ret << "case #{n}: tmp = new #{@cls.ns.cxxname}::#{@cls.name}(#{params_conversion(n)}); break;\n"
-            end
+           ret << "case #{n}: tmp = new #{@cls.ns.cxxname}::#{@cls.name}(#{params_conversion(n)}); break;\n" if @params[n].optional
+           ret << "case #{n}: tmp = new #{@cls.ns.cxxname}::#{@cls.name}(#{params_conversion(n, [@params[n].default])}); break;\n" if @params[n].default
          end
 
          ret << %@
