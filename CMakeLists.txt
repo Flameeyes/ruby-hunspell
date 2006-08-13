@@ -17,6 +17,12 @@ FIND_LIBRARY( HUNSPELL_LIBRARY NAMES hunspell libhunspell
 	      /usr/local/lib
 	    )
 
+FIND_LIBRARY( HUNSPELL_PARSERS_LIBRARY NAMES parsers libparsers
+	      PATHS
+	      /usr/lib
+	      /usr/local/lib
+	    )
+
 if ( HUNSPELL_INCLUDE_DIR AND HUNSPELL_LIBRARY )
    message(STATUS "Found hunspell: ${HUNSPELL_LIBRARY}")
 else ( HUNSPELL_INCLUDE_DIR AND HUNSPELL_LIBRARY )
