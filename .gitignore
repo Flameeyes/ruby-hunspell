@@ -8,3 +8,5 @@ hunspell/hunspell.hh
 hunspell/parsers.cc
 hunspell/parsers.hh
 hunspell/parsers.so
+DartTestfile.txt
+Testing
