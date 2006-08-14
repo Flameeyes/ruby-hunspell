@@ -1,0 +1,16 @@
+Because of a limitation of Hunspell, you have to call the functions to spell
+and suggest with the strings encoded in the same encoding as the dictionary.
+
+To do this, you need to do something along these lines:
+
+require 'iconv'
+require 'hunspell'
+
+h = Hunspell::Hunspell.new("/usr/share/myspell/it_IT.aff", "/usr/share/myspell/it_IT.dic")
+cd = Iconv.new(h.get_dic_encoding, '') # '' means the current encoding
+
+h.spell(cd.iconv("città"))
+
+rcd = Iconv.new('', h.get_dic_encoding)
+suggestions = h.suggest(cd.iconv("crittà")).map { |sugg| rcd.iconv(sugg) }
+
