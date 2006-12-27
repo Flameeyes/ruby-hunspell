@@ -34,5 +34,7 @@ endif ( HUNSPELL_INCLUDE_DIR AND HUNSPELL_LIBRARY )
 
 INCLUDE_DIRECTORIES(${RUBY_INCLUDE_PATH} ${HUNSPELL_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/generator)
 
-# This is unfortunately the only way to inject a CC flag
-ADD_DEFINITIONS(-fvisibility=hidden -DHAVE_VISIBILITY)
+if ( NOT MSVC )
+   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden")
+   ADD_DEFINITIONS(-DHAVE_VISIBILITY)
+endif ( NOT MSVC )
