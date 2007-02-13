@@ -15,11 +15,12 @@ should work just as fine on UNIX-like systems (Linux, FreeBSD, ...) and Windows,
 so that the extension can be built and used whenever Ruby and Hunspell are
 present.
 
-Since version 0.002 the extension is generated through the generator that was
-wrote to get RubyTag++ working (with a few improvements that will be merged
-back into the other line of code). This implies that quite a bit more symbols are
-being exported, but this also allows for a more complete (and safely working)
-extension to be written.
+Since version 0.005 the extension is generated through Rust, the ruby
+extensions generator developed by myself, derived from the previous
+extensions generator that used YAML descriptions of the classes. This
+method requires an extra build-time dependency (rust itself), and
+requires more symbols to be exported (as STL is used), but it's also a
+more flexible way to generate the source code needed.
 
 To try reducing the number of unneeded exported symbols, ruby-hunspell builds by
 default with hidden visibility enabled, that requires GCC 4.0 or later, or a
@@ -39,4 +40,4 @@ need the libtool patch applied in Gentoo Portage, that builds shared libraries
 built with PIC support.
 
 Any feature request, bug report or anything else, please send via e-mail at
-    Diego Pettenò <flameeyes@gentoo.org>
+    Diego Pettenò <flameeyes@gmail.com>
