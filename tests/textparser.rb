@@ -24,7 +24,8 @@ tp.put_line("hi, how's life? good")
 token = tp.next_token
 puts "Token: #{token}"
 exit 1 if token != "hi"
-exit 1 unless tp.change_token("hello")
+
+exit 2 unless tp.change_token("hello")
 
 token = tp.next_token
 puts "Token: #{token}"
