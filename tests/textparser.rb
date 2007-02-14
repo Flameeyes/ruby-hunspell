@@ -16,40 +16,28 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 require 'hunspell/parsers'
+require 'test/unit'
 
-tp = Hunspell::TextParser.new
+class TPTest < Test::Unit::TestCase
+  def setup
+    @tp = Hunspell::TextParser.new
+  end
 
-tp.put_line("hi, how's life? good")
+  def test_next_token
+    @tp.put_line("test next token")
+    assert @tp.next_token == "test"
+    assert @tp.next_token == "next"
+    assert @tp.next_token == "token"
+    assert @tp.next_token == nil
+  end
 
-token = tp.next_token
-puts "Token: #{token}"
-exit 1 if token != "hi"
+  def test_change_token
+    @tp.put_line("test next token")
+    @tp.next_token
+    @tp.next_token
 
-exit 2 unless tp.change_token("hello")
+    assert @tp.change_token("change")
 
-token = tp.next_token
-puts "Token: #{token}"
-exit 1 if token != "hello"
-
-token = tp.next_token
-puts "Token: #{token}"
-exit 1 if token != "how"
-
-token = tp.next_token
-puts "Token: #{token}"
-exit 1 if token != "s"
-
-token = tp.next_token
-puts "Token: #{token}"
-exit 1 if token != "life"
-
-token = tp.next_token
-puts "Token: #{token}"
-exit 1 if token != "good"
-
-token = tp.next_token
-puts "Token: #{token}"
-exit 1 if token != nil
-
-puts "Line: #{tp.get_line}"
-exit 1 if tp.get_line != "hello, how's life? good"
+    assert @tp.get_line == "test change token"
+  end
+end
