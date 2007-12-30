@@ -24,6 +24,12 @@ endif
 
 FINAL_CFLAGS = $(CFLAGS) $(VISIBILITY_CFLAGS) $(HUNSPELL_CFLAGS) $(RUBY_CFLAGS) $(RUST_CFLAGS)
 
+PACKAGE = ruby-hunspell
+
+ifeq "$(VERSION)" ""
+VERSION = $(shell date +"%Y-%m-%d_%H-%M")
+endif
+
 all: hunspell/hunspell.so #hunspell/parsers.so
 
 #test: all tests/textparser.rb
@@ -32,6 +38,8 @@ all: hunspell/hunspell.so #hunspell/parsers.so
 clean:
 	-rm hunspell/hunspell.cc hunspell/hunspell.hh hunspell/hunspell.so
 #	-rm hunspell/parsers.cc hunspell/parsers.hh hunspell/parsers.so
+
+tarball: $(PACKAGE)-$(VERSION).tar.bz2
 
 install: all
 	$(INSTALL) -d $(DESTDIR)$(RUBY_ARCH_DIR)
@@ -47,6 +55,9 @@ hunspell/%.cc: hunspell/%.rb
 hunspell/%.so: hunspell/%.cc
 	$(CC) -shared -fPIC $(FINAL_CFLAGS) $(LDFLAGS) $< $(RUBY_LIBS) -o $@
 
-.PHONY: all install test
+$(PACKAGE)-$(VERSION).tar.bz2: $(shell git-ls-files)
+	git-archive --format=tar --prefix=$(PACKAGE)-$(VERSION)/ HEAD | bzip2 > $@
+
+.PHONY: all install test tarball
 
 .PRECIOUS: hunspell/%.cc hunspell/%.hh
