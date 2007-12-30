@@ -30,13 +30,21 @@ ifeq "$(VERSION)" ""
 VERSION = $(shell date +"%Y-%m-%d_%H-%M")
 endif
 
-all: hunspell/hunspell.so #hunspell/parsers.so
+EXTENSIONS_DIR = hunspell
+EXTENSIONS = hunspell.so #parsers.so
+
+_EXTENSIONS = $(addprefix $(EXTENSIONS_DIR)/,$(EXTENSIONS))
+_EXTENSIONS_SOURCES = $(patsubst %.so,%.cc,$(_EXTENSIONS))
+_EXTENSIONS_HEADERS = $(patsubst %.so,%.hh,$(_EXTENSIONS))
+_EXTENSIONS_RUSTSRC = $(patsubst %.so,%.rb,$(_EXTENSIONS))
+
+all: $(_EXTENSIONS)
 
 #test: all tests/textparser.rb
 #	$(RUBY) -I hunspell tests/textparser.rb
 
 clean:
-	-rm hunspell/hunspell.cc hunspell/hunspell.hh hunspell/hunspell.so
+	-rm $(_EXTENSIONS) $(_EXTENSIONS_SOURCES) $(_EXTENSIONS_HEADERS)
 #	-rm hunspell/parsers.cc hunspell/parsers.hh hunspell/parsers.so
 
 tarball: $(PACKAGE)-$(VERSION).tar.bz2
@@ -47,12 +55,12 @@ install: all
 	$(INSTALL) hunspell/hunspell.so $(DESTDIR)$(RUBY_ARCH_DIR)
 #	$(INSTALL) hunspell/parsers.so $(DESTDIR)$(RUBY_ARCH_DIR)
 
-hunspell/%.hh: hunspell/%.cc
+$(_EXTENSIONS_HEADERS): %.hh: %.cc
 
-hunspell/%.cc: hunspell/%.rb
-	$(RUBY) -Chunspell $(RUST_RUBYFLAGS) $(notdir $<)
+$(_EXTENSIONS_SOURCES): %.cc: %.rb
+	$(RUBY) -C $(dir $@) $(RUST_RUBYFLAGS) $(notdir $<)
 
-hunspell/%.so: hunspell/%.cc
+$(_EXTENSIONS): %.so: %.cc
 	$(CC) -shared -fPIC $(FINAL_CFLAGS) $(LDFLAGS) $< $(RUBY_LIBS) -o $@
 
 $(PACKAGE)-$(VERSION).tar.bz2: $(shell git-ls-files)
@@ -60,4 +68,4 @@ $(PACKAGE)-$(VERSION).tar.bz2: $(shell git-ls-files)
 
 .PHONY: all install test tarball
 
-.PRECIOUS: hunspell/%.cc hunspell/%.hh
+.PRECIOUS: $(_EXTENSIONS_SOURCES) $(_EXTENSIONS_HEADERS)
