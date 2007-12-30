@@ -20,7 +20,7 @@ require 'rust'
 word_in_array_out_prototype = "VALUE !function_varname!(VALUE self, VALUE word)\n"
 word_in_array_out_stub = 
   "VALUE !function_varname!(VALUE self, VALUE word) {
-    ::Hunspell* ptr = ruby2Hunspell_HunspellPtr(self);
+    ::Hunspell* ptr = ruby2HunspellPtr(self);
     if ( ! ptr ) return Qnil; /* The exception is thrown by ruby2* */
   
     char **output = NULL;
