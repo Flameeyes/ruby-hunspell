@@ -61,10 +61,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "hunspell" do |b|
         method.add_parameter "char *", "word"
       end
 
-      klass.add_method "put_word_suffix" do |method|
-        method.add_parameter "char *", "word"
-        method.add_parameter "char *", "suffix"
-      end
+      # HUNSPELL_EXPERIMENTAL
+      # klass.add_method "put_word_suffix" do |method|
+      #   method.add_parameter "char *", "word"
+      #   method.add_parameter "char *", "suffix"
+      # end
 
       klass.add_method "put_word_pattern" do |method|
         method.add_parameter "char *", "word"
@@ -82,44 +83,45 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "hunspell" do |b|
 
       klass.add_method "get_version", "char *"
 
+      # HUNSPELL_EXPERIMENTAL
       # Morphological analysis
-      klass.add_method "morph" do |method|
-        method.add_parameter "char *", "word"
-      end
+      # klass.add_method "morph" do |method|
+      #   method.add_parameter "char *", "word"
+      # end
 
-      klass.add_method "analyze" do |method|
-        method.add_parameter "char *", "word"
+      # klass.add_method "analyze" do |method|
+      #   method.add_parameter "char *", "word"
+      # 
+      #   method.set_custom(word_in_array_out_prototype,
+      #                     word_in_array_out_stub)
+      # end
 
-        method.set_custom(word_in_array_out_prototype,
-                          word_in_array_out_stub)
-      end
-
-      klass.add_method "morph_with_correction" do |method|
-        method.add_parameter "char *", "word"
-      end
+      # klass.add_method "morph_with_correction" do |method|
+      #   method.add_parameter "char *", "word"
+      # end
 
       # Stemmer function
-      klass.add_method "stem" do |method|
-        method.add_parameter "char *", "word"
-
-        method.set_custom(word_in_array_out_prototype,
-                          word_in_array_out_stub)
-      end
+      # klass.add_method "stem" do |method|
+      #   method.add_parameter "char *", "word"
+      # 
+      #   method.set_custom(word_in_array_out_prototype,
+      #                     word_in_array_out_stub)
+      # end
 
       # Spec. suggestion
-      klass.add_method "suggest_auto" do |method|
-        method.add_parameter "char *", "word"
+      # klass.add_method "suggest_auto" do |method|
+      #   method.add_parameter "char *", "word"
+      # 
+      #   method.set_custom(word_in_array_out_prototype,
+      #                     word_in_array_out_stub)
+      # end
 
-        method.set_custom(word_in_array_out_prototype,
-                          word_in_array_out_stub)
-      end
-
-      klass.add_method "suggest_pos_stems" do |method|
-        method.add_parameter "char *", "word"
-
-        method.set_custom(word_in_array_out_prototype,
-                          word_in_array_out_stub)
-      end
+      # klass.add_method "suggest_pos_stems" do |method|
+      #   method.add_parameter "char *", "word"
+      # 
+      #   method.set_custom(word_in_array_out_prototype,
+      #                     word_in_array_out_stub)
+      # end
 
     end
   end
