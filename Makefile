@@ -29,6 +29,10 @@ all: hunspell/hunspell.so #hunspell/parsers.so
 #test: all tests/textparser.rb
 #	$(RUBY) -I hunspell tests/textparser.rb
 
+clean:
+	-rm hunspell/hunspell.cc hunspell/hunspell.hh hunspell/hunspell.so
+#	-rm hunspell/parsers.cc hunspell/parsers.hh hunspell/parsers.so
+
 install: all
 	$(INSTALL) -d $(DESTDIR)$(RUBY_ARCH_DIR)
 	$(INSTALL) -d $(DESTDIR)$(RUBY_ARCH_DIR)/hunspell
