@@ -1,12 +1,6 @@
-CMakeCache.txt
-CMakeFiles
-Makefile
-cmake_install.cmake
 hunspell/hunspell.cc
 hunspell/hunspell.hh
 hunspell/hunspell.so
 hunspell/parsers.cc
 hunspell/parsers.hh
 hunspell/parsers.so
-DartTestfile.txt
-Testing
