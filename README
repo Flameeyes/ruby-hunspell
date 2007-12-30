@@ -9,11 +9,10 @@ rbot's original spell-checking plugin, so that it would use hunspell directly
 rather than using the command-line interface of ispell (that is definitely less
 elaborated).
 
-The build system is CMake, rather than Ruby's xmkmf-based extbuild.rb script, as
-the latter does not support C++ libraries as dependencies. The support scripts
-should work just as fine on UNIX-like systems (Linux, FreeBSD, ...) and Windows,
-so that the extension can be built and used whenever Ruby and Hunspell are
-present.
+The build system is a simple custom Makefile, as Ruby's xmkmf-based
+extbuild.rb script does not support C++ libraries as dependencies. The
+support scripts should work just fine on any UNIX-like system (Linux,
+FreeBSD, ...) but has not been tested under Windows.
 
 Since version 0.005 the extension is generated through Rust, the ruby
 extensions generator developed by myself, derived from the previous
@@ -25,19 +24,20 @@ more flexible way to generate the source code needed.
 To try reducing the number of unneeded exported symbols, ruby-hunspell builds by
 default with hidden visibility enabled, that requires GCC 4.0 or later, or a
 specially patched 3.4. This is really important for the performances, especially
-since the bindings will be resolved at runtime, but can be disabled in the
-CMakeLists.txt file if needed.
+since the bindings will be resolved at runtime, but it's only enabled
+if GCC 4.0 is found. If you want to force using visibility with GCC
+3.4, set USE_VISIBILITY=YES at the make commandline.
 
 This extension will be called complete when it would be possible to implement
 easily drop-in replacements for hunspell's bundled tools written in Ruby rather
 than C++.
 
-Unfortunately up to 1.1.4, Hunspell does not provide shared libraries that can
-be used by other software, so only static linking is available, and this does
-not work, to create a shared extension, on architectures like x86_64.
-For this reason, if you want to build ruby-hunspell on those architecture, you
-need the libtool patch applied in Gentoo Portage, that builds shared libraries
-built with PIC support.
+While Hunspell, at least up to 1.1.4 did not provide shared libraries
+to be used by other software, the current 1.1.9 version seems to
+provide a libhunspell shared library to be used by the
+extensions. Unfortunately, the text parsers are only provided as a
+static library, and their header files are not installed, so the
+parsers bindings cannot be built.
 
 Any feature request, bug report or anything else, please send via e-mail at
     Diego Pettenò <flameeyes@gmail.com>
