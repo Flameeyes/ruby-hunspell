@@ -47,7 +47,7 @@ clean:
 	-rm $(_EXTENSIONS) $(_EXTENSIONS_SOURCES) $(_EXTENSIONS_HEADERS)
 #	-rm hunspell/parsers.cc hunspell/parsers.hh hunspell/parsers.so
 
-tarball: $(PACKAGE)-$(VERSION).tar.bz2
+dist: $(PACKAGE)-$(VERSION).tar.bz2
 
 install: all
 	$(INSTALL) -d $(DESTDIR)$(RUBY_ARCH_DIR)
@@ -66,6 +66,6 @@ $(_EXTENSIONS): %.so: %.cc
 $(PACKAGE)-$(VERSION).tar.bz2: $(shell git-ls-files)
 	git-archive --format=tar --prefix=$(PACKAGE)-$(VERSION)/ HEAD | bzip2 > $@
 
-.PHONY: all install test tarball
+.PHONY: all install test dist
 
 .PRECIOUS: $(_EXTENSIONS_SOURCES) $(_EXTENSIONS_HEADERS)
