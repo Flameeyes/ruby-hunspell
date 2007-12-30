@@ -43,9 +43,9 @@ tarball: $(PACKAGE)-$(VERSION).tar.bz2
 
 install: all
 	$(INSTALL) -d $(DESTDIR)$(RUBY_ARCH_DIR)
-	$(INSTALL) -d $(DESTDIR)$(RUBY_ARCH_DIR)/hunspell
+#	$(INSTALL) -d $(DESTDIR)$(RUBY_ARCH_DIR)/hunspell
 	$(INSTALL) hunspell/hunspell.so $(DESTDIR)$(RUBY_ARCH_DIR)
-	$(INSTALL) hunspell/parsers.so $(DESTDIR)$(RUBY_ARCH_DIR)
+#	$(INSTALL) hunspell/parsers.so $(DESTDIR)$(RUBY_ARCH_DIR)
 
 hunspell/%.hh: hunspell/%.cc
 
