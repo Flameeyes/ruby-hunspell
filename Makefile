@@ -22,7 +22,7 @@ ifeq "$(USE_VISIBILITY)" "YES"
 VISIBILITY_CFLAGS = -fvisibility=hidden
 endif
 
-FINAL_CFLAGS = $(CFLAGS) $(VISIBILITY_CFLAGS) $(HUNSPELL_CFLAGS) $(RUBY_CFLAGS) $(RUST_CFLAGS)
+FINAL_CXXFLAGS = $(CXXFLAGS) $(VISIBILITY_CFLAGS) $(HUNSPELL_CFLAGS) $(RUBY_CFLAGS) $(RUST_CFLAGS)
 
 PACKAGE = ruby-hunspell
 
@@ -61,7 +61,7 @@ $(_EXTENSIONS_SOURCES): %.cc: %.rb
 	$(RUBY) -C $(dir $@) $(RUST_RUBYFLAGS) $(notdir $<)
 
 $(_EXTENSIONS): %.so: %.cc
-	$(CC) -shared -fPIC $(FINAL_CFLAGS) $(LDFLAGS) $< $(RUBY_LIBS) -o $@
+	$(CXX) -shared -fPIC $(FINAL_CXXFLAGS) $(LDFLAGS) $< $(RUBY_LIBS) -o $@
 
 $(PACKAGE)-$(VERSION).tar.bz2: $(shell git-ls-files)
 	git-archive --format=tar --prefix=$(PACKAGE)-$(VERSION)/ HEAD | bzip2 > $@
