@@ -19,7 +19,7 @@ RUBY_LIBS = $(shell $(RUBY) -r rbconfig -e 'printf("%s",Config::CONFIG["LIBRUBYA
 USE_VISIBILITY = $(shell $(CPP) -E -P extra/visibility-test.c | grep YES)
 
 ifeq "$(USE_VISIBILITY)" "YES"
-VISIBILITY_CFLAGS = -fvisibility=hidden
+VISIBILITY_CFLAGS = -fvisibility=hidden -DHAVE_VISIBILITY
 endif
 
 FINAL_CXXFLAGS = $(CXXFLAGS) $(VISIBILITY_CFLAGS) $(HUNSPELL_CFLAGS) $(RUBY_CFLAGS) $(RUST_CFLAGS)
