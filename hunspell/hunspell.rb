@@ -57,21 +57,6 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "hunspell" do |b|
                           word_in_array_out_stub)
       end
 
-      klass.add_method "put_word" do |method|
-        method.add_parameter "char *", "word"
-      end
-
-      # HUNSPELL_EXPERIMENTAL
-      # klass.add_method "put_word_suffix" do |method|
-      #   method.add_parameter "char *", "word"
-      #   method.add_parameter "char *", "suffix"
-      # end
-
-      klass.add_method "put_word_pattern" do |method|
-        method.add_parameter "char *", "word"
-        method.add_parameter "char *", "pattern"
-      end
-
       # Other functions
       klass.add_method "get_dic_encoding", "char *"
 
