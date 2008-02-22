@@ -66,8 +66,8 @@ $(_EXTENSIONS_SOURCES): %.cc: %.rb
 $(_EXTENSIONS): %.so: %.cc
 	$(CXX) -shared -fPIC $(FINAL_CXXFLAGS) $(LDFLAGS) $< $(FINAL_LIBS) -o $@
 
-$(PACKAGE)-$(VERSION).tar.bz2: $(shell git-ls-files)
-	git-archive --format=tar --prefix=$(PACKAGE)-$(VERSION)/ HEAD | bzip2 > $@
+$(PACKAGE)-$(VERSION).tar.bz2: $(shell git ls-files)
+	git archive --format=tar --prefix=$(PACKAGE)-$(VERSION)/ HEAD | bzip2 > $@
 
 .PHONY: all install test dist
 
